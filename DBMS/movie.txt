@@ -1,0 +1,104 @@
+create table User(
+user_id varchar(6) Primary key,
+name varchar(20) NOT NULL,
+sex int(4) NOT NULL,
+Phone varchar(10) NOT NULL,
+mail varchar(15) 
+);
+
+
+create table Movie(
+movie_id varchar(6) Primary key,
+name varchar(20) NOT NULL,
+Director varchar(20) NOT NULL,
+Rating varchar(5) NOT NULL,
+Halls_provided varchar(5),
+Language varchar(10) NOT NULL,
+Starring varchar(20), 
+);
+
+
+create table Show_details(
+show_id varchar(6) Primary key,
+date varchar(20) NOT NULL,
+time varchar(4) NOT NULL,
+theatre_id varchar(10) NOT NULL,
+movie_id varchar(15) NOT NULL,
+);
+
+create table Seats(
+seat_id varchar(6) Primary key,
+row varchar(1) NOT NULL,
+column int(4) NOT NULL,
+hall_id varchar(10) NOT NULL,
+);
+
+create table Payment(
+payment_id varchar(6) Primary key,
+seat_id varchar(6) ,
+final_cost varchar(20) NOT NULL,
+payment_status varchar(4) NOT NULL,
+no_of_seats varchar(10) NOT NULL,
+);
+
+create table Bookings(
+booking_id varchar(6) Primary key AUTO_INCREMENT,
+user_id varchar(6) NOT NULL,
+movie_id varchar(20) NOT NULL,
+show_id varchar(4) NOT NULL,
+no_id varchar(10) NOT NULL,
+);
+
+
+
+
+
+/*Procedure1*/
+
+DECLARE
+	x number;
+create procedure getBookingDetails (x IN number) IS
+
+BEGIN
+
+Select name,mobile_number from user where( select User_id from Bookings where Booking_id=x)
+Select m_name,starring,ratings from Movie where( select Movie_id from Bookings where Booking_id=x)
+Select * from show_details where( select show_id from Bookings where Booking_id=x)
+select * from seats where(select seat_id from Bookings where Booking_id=x)
+select finalcost,payment_status from payment where(select seat_id from Bookings where Booking_id=x)
+
+END;
+BEGIN
+x:=123;
+getBookingDetails(x);
+END;
+/
+
+
+
+
+/*Procedure2*/
+
+
+Declare
+	a varchar(6);
+	b varchar(6);
+	c varchar(6);
+	d varchar(6);
+	e varchar(6);
+create procedure book_movie (a IN varchar,b IN varchar,c IN varchar,d IN varchar,e IN varchar)IS
+BEGIN
+
+select booking_id from Bookings where(user_id=a AND Mmovie_id=b AND show_id=c AND seat_id=d AND payement_id=e )
+ 
+END;
+BEGIN
+a:=100;
+b:=101;
+c:=200;
+d:=130;
+e:=104;
+book_movie(a,b,c,d,e);
+END
+
+	

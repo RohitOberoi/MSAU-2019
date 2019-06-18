@@ -1,0 +1,89 @@
+// trigger after update 
+
+Delimiter $$
+create trigger first after update
+on employee1
+for each row
+Begin
+	Insert into employee2(Id,name ,age,action)	
+	values(new.Id,new.name,new.age,"update");
+End $$
+Delimiter ;
+
+update employee1 set name= "kapil" where Id=101;
+
+select * from employee2;
+
+ ------x-----x------x------x------x------x-----x------x-----x------x------x-----x----
+
+// trigger after update 
+
+Delimiter $$
+create trigger second before update
+on employee1
+for each row
+Begin
+	Insert into employee2(Id,name ,age,action)	
+	values(old.Id,old.name,old.age,"update");
+End $$
+Delimiter ;
+
+update employee1 set name= "kapil" where Id=101;
+
+select * from employee2;
+
+ ------x-----x------x------x------x------x-----x------x-----x------x------x-----x----
+
+//trigger after insert
+
+Delimiter $$
+create trigger third after insert
+on employee1
+for each row
+Begin
+	Insert into employee2(Id,name ,age,action)	
+	values(new.Id,new.name,new.age,"insert");
+End $$
+Delimiter ;
+
+insert into employee1(Id,name,age)
+values(108,"gikki",36);
+
+select * from employee2;
+
+
+ ------x-----x------x------x------x------x-----x------x-----x------x------x-----x----
+
+DELIMITER $$
+CREATE TRIGGER forth
+  AFTER DELETE ON employees
+  FOR EACH ROW 
+BEGIN
+	Insert into employee2(Id,name ,age,action)	
+	values(old.Id,old.name,old.age,"delete"); 
+END$$
+DELIMITER ;
+
+SHOW TRIGGERS;
+
+DELETE from employee1 where name = 'kapil';
+
+SELECT * FROM employee2;
+
+------x-----x------x------x------x------x-----x------x-----x------x------x-----x----
+
+DELIMITER $$
+CREATE TRIGGER fifth
+  BEFORE DELETE ON employees
+  FOR EACH ROW 
+BEGIN
+	Insert into employee2(Id,name ,age,action)	
+	values(new.Id,new.name,new.age,"delete"); 
+END$$
+DELIMITER ;
+
+SHOW TRIGGERS;
+
+DELETE from employee1 where name = 'kapil';
+
+SELECT * FROM employee2;
