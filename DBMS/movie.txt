@@ -89,6 +89,8 @@ Declare
 create procedure book_movie (a IN varchar,b IN varchar,c IN varchar,d IN varchar,e IN varchar)IS
 BEGIN
 
+INSERT into bookings (user_id ,Mmovie_id , show_id , seat_id , payement_id)
+Values(a,b,c,d,e );
 select booking_id from Bookings where(user_id=a AND Mmovie_id=b AND show_id=c AND seat_id=d AND payement_id=e )
  
 END;
