@@ -23,9 +23,9 @@ public class jtest2 {
 	@Test
 	public void test() {
 		t.set(2000, 1000);
-		when(t1.checkid("rohit", "345")).thenReturn(true);//stubs
+		//when(t1.checkid("rohit", "345")).thenReturn(true);//stubs
 		when(t1.checkid(null, null)).thenReturn(true);//stub
-		assertEquals(true,t1.checkid("rohit", "345"));
+		//assertEquals(true,t1.checkid("rohit", "345"));
 		assertEquals(1000,t.get());
 	}
 	
